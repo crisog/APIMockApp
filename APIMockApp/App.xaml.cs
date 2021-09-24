@@ -1,4 +1,5 @@
 ﻿using System;
+using APIMockApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace APIMockApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new HomePage();
         }
 
         protected override void OnStart()
