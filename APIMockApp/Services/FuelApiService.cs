@@ -8,7 +8,7 @@ namespace APIMockApp.Services
     {
         public Task<FuelResponse> GetFuels()
         {
-            return;
+           
         }
     }
 }
