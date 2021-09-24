@@ -5,13 +5,12 @@ using Xamarin.Forms;
 
 namespace APIMockApp.Views
 {
-    public partial class HomePage : ContentPage
+    public partial class FuelPage : ContentPage
     {
-        public HomePage()
+        public FuelPage()
         {
             InitializeComponent();
-            BindingContext = new HomePageViewModel();
+            BindingContext = new FuelViewModel();
         }
     }
 }
-
