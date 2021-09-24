@@ -5,9 +5,10 @@ using Refit;
 
 namespace APIMockApp.Services
 {
-    public interface IFuelApiService
+    public interface IFuelApi
     {
-        
+        //http://eladio37-001-site1.ftempurl.com/api/Fuels
+        [Get("/api/Fuels")]
         Task<FuelResponse> GetFuelsAsync();
     }
 }
