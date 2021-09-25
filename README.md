@@ -23,4 +23,5 @@ Nota; por alguna razón la página del MICM parece que fue hackeada lo que esta
 <div>
   <h3>Evidencia:</h3>
 <img src="https://i.gyazo.com/5009e384403a7e1a711aed0edc7d2f4b.gif" width="800" height="500">
+  <img src="https://i.gyazo.com/d05265f203b8607741cf774dd4c5cf3d.gif" width="800" height="500">
   </div>
