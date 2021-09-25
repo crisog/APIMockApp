@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,21 +14,10 @@ namespace APIMockApp.ViewModels
 {
     public class FuelViewModel: BaseViewModel
     {
-
-        //public ICommand FetchCommand { get; }
-        public IDictionary<string, double> Fuels = new Dictionary<string, double> {
-            { "gasolinaPremium", 0},
-            { "gasolinaRegular", 0 },
-            { "gasoilOptimo", 0 },
-            { "gasoilRegular", 0 },
-            { "kerosene", 0 },
-            { "gasLicuadoPetroleoGLP", 0 },
-            { "gasNaturalVehicularGNV", 0 }
-        };
+        public ObservableCollection<Fuel> Fuels = new ObservableCollection<Fuel>();
         public FuelViewModel(IFuelApiService fuelApiService)
         {
             _fuelApiService = fuelApiService;
-            //FetchCommand = new Command(OnFetch);
             LoadFuelsAsync();
         }
 
@@ -40,14 +30,44 @@ namespace APIMockApp.ViewModels
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var fuels = JsonSerializer.Deserialize<FuelResponse>(responseContent, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
                     // Save Fuels
-                    Fuels["gasolinaPremium"] = Convert.ToDouble(fuels.GasolinaPremium);
-                    Fuels["gasolinaRegular"] = Convert.ToDouble(fuels.GasolinaRegular);
-                    Fuels["gasoilOptimo"] = Convert.ToDouble(fuels.GasoilOptimo);
-                    Fuels["gasoilRegular"] = Convert.ToDouble(fuels.GasoilRegular);
-                    Fuels["kerosene"] = Convert.ToDouble(fuels.Kerosene);
-                    Fuels["gasLicuadoPetroleoGLP"] = Convert.ToDouble(fuels.GasLicuadoPetroleoGLP);
-                    Fuels["gasNaturalVehicularGNV"] = Convert.ToDouble(fuels.GasNaturalVehicularGNV);
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasolinaPremium",
+                        Price = Convert.ToDouble(fuels.GasolinaPremium)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasolinaRegular",
+                        Price = Convert.ToDouble(fuels.GasolinaRegular)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasoilOptimo",
+                        Price = Convert.ToDouble(fuels.GasoilOptimo)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasoilRegular",
+                        Price = Convert.ToDouble(fuels.GasoilRegular)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "Kerosene",
+                        Price = Convert.ToDouble(fuels.Kerosene)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasLicuadoPetroleoGLP",
+                        Price = Convert.ToDouble(fuels.GasLicuadoPetroleoGLP)
+                    });
+                    Fuels.Add(new Fuel()
+                    {
+                        Name = "GasNaturalVehicularGNV",
+                        Price = Convert.ToDouble(fuels.GasNaturalVehicularGNV)
+                    });
+                    Console.WriteLine("Hello");
                 }
             }
             else
