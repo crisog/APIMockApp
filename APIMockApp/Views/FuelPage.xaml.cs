@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using APIMockApp.Services;
 using APIMockApp.ViewModels;
 using Xamarin.Forms;
 
@@ -10,7 +11,7 @@ namespace APIMockApp.Views
         public FuelPage()
         {
             InitializeComponent();
-            BindingContext = new FuelViewModel();
+            BindingContext = new FuelViewModel(new FuelApiService());
         }
     }
 }

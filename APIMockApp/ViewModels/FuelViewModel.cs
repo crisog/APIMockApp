@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using APIMockApp.Models;
 using APIMockApp.Services;
+using Refit;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace APIMockApp.ViewModels
@@ -9,7 +14,7 @@ namespace APIMockApp.ViewModels
     public class FuelViewModel: BaseViewModel
     {
 
-        public ICommand FetchCommand { get; }
+        //public ICommand FetchCommand { get; }
         public IDictionary<string, double> Fuels = new Dictionary<string, double> {
             { "gasolinaPremium", 0},
             { "gasolinaRegular", 0 },
@@ -22,15 +27,35 @@ namespace APIMockApp.ViewModels
         public FuelViewModel(IFuelApiService fuelApiService)
         {
             _fuelApiService = fuelApiService;
-            FetchCommand = new Command(OnFetch);
+            //FetchCommand = new Command(OnFetch);
+            LoadFuelsAsync();
         }
 
-        private async void OnFetch(object obj)
+        public async Task LoadFuelsAsync()
         {
-            var fuelsResponse = await _fuelApiService.GetFuelsAsync();
-            if(fuelsResponse != null)
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                return;
+                var response = await _fuelApiService.GetFuelsAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var fuels = JsonSerializer.Deserialize<FuelResponse>(responseContent, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    // Save Fuels
+                    Fuels["gasolinaPremium"] = Convert.ToDouble(fuels.GasolinaPremium);
+                    Fuels["gasolinaRegular"] = Convert.ToDouble(fuels.GasolinaRegular);
+                    Fuels["gasoilOptimo"] = Convert.ToDouble(fuels.GasoilOptimo);
+                    Fuels["gasoilRegular"] = Convert.ToDouble(fuels.GasoilRegular);
+                    Fuels["kerosene"] = Convert.ToDouble(fuels.Kerosene);
+                    Fuels["gasLicuadoPetroleoGLP"] = Convert.ToDouble(fuels.GasLicuadoPetroleoGLP);
+                    Fuels["gasNaturalVehicularGNV"] = Convert.ToDouble(fuels.GasNaturalVehicularGNV);
+                }
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await App.Current.MainPage.DisplayAlert("Alerta", "No hay conexión a internet.", "OK");
+                });
             }
         }
 

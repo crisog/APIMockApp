@@ -11,7 +11,7 @@ namespace APIMockApp
         {
             InitializeComponent();
 
-            MainPage = new HomePage();
+            MainPage = new FuelPage();
         }
 
         protected override void OnStart()
