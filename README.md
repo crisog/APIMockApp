@@ -20,3 +20,7 @@ El formato que devuelve es:
 ```
 Nota; por alguna razón la página del MICM parece que fue hackeada lo que esta interrumpiendo el correcto funcionamiento del API.
 
+<div>
+  <h3>Evidencia:</h3>
+<img src="https://i.gyazo.com/5009e384403a7e1a711aed0edc7d2f4b.gif" width="800" height="500">
+  </div>
