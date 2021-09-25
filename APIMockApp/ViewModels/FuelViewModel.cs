@@ -20,8 +20,7 @@ namespace APIMockApp.ViewModels
         {
             _fuelApiService = fuelApiService;
             //LoadCommand = new Command(OnLoad);
-            //LoadFuelsAsync();
-            Fuels.Add(new Fuel() { Name = "Default", Price = 0 });
+            LoadFuelsAsync();
         }
 
         private async void OnLoad()
