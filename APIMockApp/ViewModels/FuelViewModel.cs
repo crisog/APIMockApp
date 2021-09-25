@@ -14,11 +14,19 @@ namespace APIMockApp.ViewModels
 {
     public class FuelViewModel: BaseViewModel
     {
-        public ObservableCollection<Fuel> Fuels = new ObservableCollection<Fuel>();
+        //public ICommand LoadCommand { get; }
+        public ObservableCollection<Fuel> Fuels { get; set; } = new ObservableCollection<Fuel>() { };
         public FuelViewModel(IFuelApiService fuelApiService)
         {
             _fuelApiService = fuelApiService;
-            LoadFuelsAsync();
+            //LoadCommand = new Command(OnLoad);
+            //LoadFuelsAsync();
+            Fuels.Add(new Fuel() { Name = "Default", Price = 0 });
+        }
+
+        private async void OnLoad()
+        {
+            await LoadFuelsAsync();
         }
 
         public async Task LoadFuelsAsync()

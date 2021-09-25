@@ -4,15 +4,19 @@
              x:Class="APIMockApp.Views.FuelPage"
              Title="Employee List">
 
-    <StackLayout>
-        <Label Text="Fuel Prices"/>
-  <ListView x:Name="FuelView"
-            ItemsSource="{Binding Fuels}">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <TextCell Text="{Binding Name}" />
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+    <StackLayout Orientation="Vertical" VerticalOptions="End" >
+        <!--<Button Text="Click here to load fuels" Command="{Binding LoadCommand}"></Button>-->
+  <CollectionView ItemsSource="{Binding Fuels}" 
+                HeightRequest="200"
+                  Margin="20">
+    <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid RowDefinitions="Auto,Auto,Auto">
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Name}"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Price}"/>
+            </Grid>
+          </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>  
         </StackLayout>
 </ContentPage>
